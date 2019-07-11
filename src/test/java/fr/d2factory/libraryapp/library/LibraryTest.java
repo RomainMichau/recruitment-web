@@ -7,6 +7,7 @@ import org.junit.Test;
 import static org.junit.Assert.fail;
 
 public class LibraryTest {
+    private static final String BOOKS_FILE="src/test/resources";
     private Library library ;
     private BookRepository bookRepository;
 
@@ -16,6 +17,7 @@ public class LibraryTest {
 
         //TODO add some test books (use BookRepository#addBooks)
         //TODO to help you a file called books.json is available in src/test/resources
+        library =LibraryTownsVille.getInstance();
     }
 
     @Test
