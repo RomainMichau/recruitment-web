@@ -9,8 +9,8 @@ import java.util.List;
 
 public class UtilMethod {
 
-    static public <T> List<T> jsonFileToObject(String filePath) throws IOException {
-        List<T> result=new ObjectMapper().readValue(new File(filePath),new TypeReference<List<T>>(){});
+    static public  List<Book> jsonFileToObject(String filePath) throws IOException {
+        List<Book> result=new ObjectMapper().readValue(new File(filePath),new TypeReference<List<Book>>(){});
         return result;
     }
 }

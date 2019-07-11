@@ -1,6 +1,6 @@
 package fr.d2factory.libraryapp.book;
 
-import fr.d2factory.libraryapp.library.HasLateBooksException;
+import fr.d2factory.libraryapp.library.exceptions.HasLateBooksException;
 import fr.d2factory.libraryapp.library.Library;
 import fr.d2factory.libraryapp.member.Member;
 
@@ -40,7 +40,7 @@ public class BookRepository  {
      *          available
      */
     public Book findBook(long isbnCode) {
-        return availableBooks.get(isbnCode);
+        return availableBooks.get(new ISBN(isbnCode));
     }
 
     /**
@@ -48,9 +48,14 @@ public class BookRepository  {
      * @param book book to borrow
      * @param borrowedAt date of borrowing
      */
-    private void saveBookBorrow(Book book, LocalDate borrowedAt){
-        borrowedBooks.put(book,borrowedAt);
-        availableBooks.remove(book.isbn);
+    public void saveBookBorrow(Book book, LocalDate borrowedAt){
+        borrowedBooks.put(availableBooks.remove(book.isbn),borrowedAt);
+
+    }
+
+    public void saveBookReturn(Book book){
+        availableBooks.put(book.isbn,book);
+        borrowedBooks.remove(book);
     }
 
     /**
@@ -60,7 +65,7 @@ public class BookRepository  {
      *          Will return null il the book is not borrowed or
      *          does not exist
      */
-    private LocalDate findBorrowedBookDate(Book book) {
+    public LocalDate findBorrowedBookDate(Book book) {
         return borrowedBooks.get(book);
     }
 }

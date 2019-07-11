@@ -1,5 +1,7 @@
 package fr.d2factory.libraryapp.library;
 
+import fr.d2factory.libraryapp.library.exceptions.BookIsNotAvailable;
+import fr.d2factory.libraryapp.library.exceptions.HasLateBooksException;
 import fr.d2factory.libraryapp.book.Book;
 import fr.d2factory.libraryapp.member.Member;
 
@@ -25,7 +27,7 @@ public interface Library {
      * @see fr.d2factory.libraryapp.book.ISBN
      * @see Member
      */
-    Book borrowBook(long isbnCode, Member member, LocalDate borrowedAt) throws HasLateBooksException;
+    Book borrowBook(long isbnCode, Member member, LocalDate borrowedAt) throws HasLateBooksException, BookIsNotAvailable;
 
     /**
      * A member returns a book to the library.
@@ -36,5 +38,8 @@ public interface Library {
      *
      * @see Member#payBook(int)
      */
-    void returnBook(Book book, Member member);
+    void returnBook(Book book, Member member,LocalDate returnedAt);
+    
+    
+    public void addMember(Member newMember);
 }
