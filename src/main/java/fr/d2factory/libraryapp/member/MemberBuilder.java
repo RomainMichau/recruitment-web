@@ -5,49 +5,74 @@
  */
 package fr.d2factory.libraryapp.member;
 
-import fr.d2factory.libraryapp.library.Library;
-import fr.d2factory.libraryapp.member.student.Student;
-import fr.d2factory.libraryapp.member.student.StudentFactory;
-
 import java.math.BigDecimal;
 
 /**
+ * This class is in charge to build some instance which implement the abstact class Member <br/>
  *
  * @author rmichau
+ * @see Member
  */
 public class MemberBuilder {
 
-    public MemberBuilder(Library libary) {
-        this.libary = libary;
+    /**
+     * Default constructor
+     */
+    public MemberBuilder() {
     }
-    Library libary;
 
-    public class MemberGetter {
+    /**
+     * Build a MemberFactory with the attribut sent in parameters
+     *
+     * @param lastName  LastName of the Member
+     * @param firstName FirstName of the Member
+     * @param wallet    Wallet of the Member
+     * @return an instance of the class MemberFactory
+     * @see MemberFactory
+     */
+    public MemberFactory buildMember(String lastName, String firstName, BigDecimal wallet) {
+        return new MemberFactory(lastName, firstName, wallet);
+    }
 
-        public MemberGetter(String lastName, String firstName, BigDecimal wallet) {
+
+    /**
+     * This inner class make the user able to choose to create a student or a resident member
+     */
+    public class MemberFactory {
+
+        /**
+         * Constructor of the class MemberFactory
+         *
+         * @param lastName FirstName of the member
+         * @param firstName FirstName of the member
+         * @param wallet Wallet of the member
+         */
+        public MemberFactory(String lastName, String firstName, BigDecimal wallet) {
             this.lastName = lastName;
             this.firstName = firstName;
             this.wallet = wallet;
         }
 
-        String lastName;
-        String firstName;
-        BigDecimal wallet;
-        
-        public Student student(int year){
-            Student student= StudentFactory.createStudent(wallet, lastName, firstName, year);
-            libary.addMember(student);
+        private final String lastName;
+        private final String firstName;
+        private final BigDecimal wallet;
+
+        /**
+         * Return an instance of Student which have the attribut sent in the constructor
+         * @param year year of the student
+         * @return  an instance of Student with the wanted attribut
+         */
+        public Student student(int year) {
+            Student student = StudentFactory.createStudent(wallet, lastName, firstName, year);
             return student;
         }
-        
-        public Resident resident(){
-            Resident resident=new Resident(wallet, lastName, firstName);
-            libary.addMember(resident);
+
+        /**
+         * @return an instance of resident
+         */
+        public Resident resident() {
+            Resident resident = new Resident(wallet, lastName, firstName);
             return resident;
         }
-    }
-
-   public MemberGetter buildMember(String lastName, String firstName, BigDecimal wallet) {
-        return new MemberGetter(lastName, firstName, wallet);
     }
 }

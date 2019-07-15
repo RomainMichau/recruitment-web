@@ -5,18 +5,28 @@
  */
 package fr.d2factory.libraryapp.member;
 
+import fr.d2factory.libraryapp.config.ConfigValue;
+
 import java.math.BigDecimal;
 
 /**
+ * Represent a Resident
+ * Extends member
+ *
  * @author rmichau
+ * @see fr.d2factory.libraryapp.member.Member
  */
 public class Resident extends Member {
-    final static BigDecimal RESIDENT_NORMAL_PRICE = BigDecimal.valueOf(0.1);
-    final static BigDecimal RESIDENT_INCREASED_PRICE = BigDecimal.valueOf(0.20);
-    final static int RESIDENT_MAX_TIME_BORROW = 60;
 
-    public Resident(BigDecimal wallet, String LastName, String FirstName) {
-        super(wallet, LastName, FirstName, RESIDENT_MAX_TIME_BORROW, RESIDENT_NORMAL_PRICE, RESIDENT_INCREASED_PRICE);
+    /**
+     * Package private constructor (only call by MemberFactory)
+     * @param wallet wallet of the user
+     * @param LastName LastName of the user
+     * @param FirstName First Name of the user
+     * @see fr.d2factory.libraryapp.member.MemberBuilder.MemberFactory
+     */
+     Resident(BigDecimal wallet, String LastName, String FirstName) {
+        super(wallet, LastName, FirstName, ConfigValue.RESIDENT.MAX_TIME_BORROW, ConfigValue.RESIDENT.NORMAL_PRICE, ConfigValue.RESIDENT.INCREASED_PRICE);
     }
 
 }

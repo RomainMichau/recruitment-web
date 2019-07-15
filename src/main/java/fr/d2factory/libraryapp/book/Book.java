@@ -7,7 +7,20 @@ import java.util.Objects;
  */
 public class Book {
 
+    String title;
+    String author;
+    ISBN isbn;
+
+    /**
+     * Default contructor used for deserialization of the JSON by Jackson
+     */
     public Book() {
+    }
+
+    public Book(String title, String author, ISBN isbn) {
+        this.title = title;
+        this.author = author;
+        this.isbn = isbn;
     }
 
     public String getTitle() {
@@ -30,19 +43,11 @@ public class Book {
         return isbn;
     }
 
-    public void setIsbn(ISBN isbn) {
-        this.isbn = isbn;
-    }
-    String title;
-    String author;
-    ISBN isbn;
-
-    public Book(String title, String author, ISBN isbn) {
-        this.title = title;
-        this.author = author;
-        this.isbn = isbn;
-    }
-
+    /**
+     * Check equality of this object with an other
+     * @param o other object to compare
+     * @return true if the two objects are equals
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -53,6 +58,10 @@ public class Book {
                 Objects.equals(isbn, book.isbn);
     }
 
+    /**
+     * Generate a hashcode of the  object
+     * @return  the hashcode
+     */
     @Override
     public int hashCode() {
         return Objects.hash(title, author, isbn);

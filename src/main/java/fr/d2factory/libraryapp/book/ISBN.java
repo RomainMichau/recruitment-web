@@ -2,19 +2,25 @@ package fr.d2factory.libraryapp.book;
 
 import java.util.Objects;
 
+/**
+ * Represent the ISBN number which identified books
+ */
 public class ISBN {
 
-    public void setIsbnCode(long isbnCode) {
-        this.isbnCode = isbnCode;
+    /**
+     * ISBN code
+     */
+    long isbnCode;
+
+    /**
+     * Default constructor used by Jackson for deserialize the JSON file
+     */
+    public ISBN() {
     }
 
     public long getIsbnCode() {
         return isbnCode;
     }
-
-    public ISBN() {
-    }
-    long isbnCode;
 
     public ISBN(long isbnCode) {
         this.isbnCode = isbnCode;
